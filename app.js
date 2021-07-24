@@ -4,7 +4,7 @@ const bodyParser = require("body-parser")
 const cors = require("cors")
 const morgan = require("morgan")
 const path = require("path")
-// const apolloServer = require('./initGraphQLServer')
+const {startApolloServer, apolloServer} = require('./initGraphQLServer')
 // import { PORT, NODE_ENV } from './config/config';
 // import { httpsRedirect, wwwRedirect } from './lib/http-redirect';
 
@@ -70,11 +70,12 @@ app.use(bodyParser.urlencoded({ limit: "10mb", extended: true, parameterLimit: 5
 app.use(cors({ origin: corsUrl, optionsSuccessStatus: 200 }))
 
 // GraphQL server setup
-// apolloServer.applyMiddleware({ app, path: '/graphql' });
 
-// View Engine setup
-// app.set("views", path.join(__dirname, "views"))
-// app.set("view engine", "ejs")
+;(async()=> {
+    const middlewareObject = { app, path: '/graphql' }
+    await startApolloServer(middlewareObject)
+    
+})()
 
 // Public Folder setup
 app.use(express.static(path.join(__dirname, "public")))

@@ -14,10 +14,10 @@ config.environment = process.env.NODE_ENV || "development"
 config.port = process.env.PORT || "3005"
 
 config.secret = process.env.SECRET || "nothing can be secret"
-config.keys = {
-  private: fs.readFileSync("./keys/private.pem"),
-  public: fs.readFileSync("./keys/public.pem")
-}
+// config.keys = {
+//   private: fs.readFileSync("./keys/private.pem"),
+//   public: fs.readFileSync("./keys/public.pem")
+// }
 config.saltRound = Number(process.env.SALT_ROUNDS) || 10
 
 //-----------------------------------------------------
