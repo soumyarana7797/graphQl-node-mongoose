@@ -1,5 +1,5 @@
 // const DffUserTeamRepo = require("../../../../database/mongoose/repositories/DffUserTeamsRepo")
-// const DffUserTeamsContestRepo = require("../../../../database/mongoose/repositories/DffUserTeamsContestRepo")
+const DffUserTeamsContestRepo = require("../../../../database/mongoose/repositories/DffUserTeamsContestRepo")
 // const DffContestsRepo = require("../../../../database/mongoose/repositories/DffContestsRepo")
 // // const UserRepo = require("../../../../database/mongoose/repositories/UserRepo")
 // const { CreatedResponse, ConflictResponse } = require("../../../../lib/core/apiResponse")
@@ -323,39 +323,39 @@ module.exports = {
   *
   */
 
-//   createUserTeamContest: asyncHandler(async (req, res) => {
-//     const { userTeamId, contestId } = req.body
-//     const { user } = req
-//     const contest = await DffContestsRepo.findOneByFilter({ _id: contestId })
-//     if (!contest) throw ConflictError("Contest does not exists")
+  createUserTeamContest: asyncHandler(async (req, res) => {
+    const { userTeamId, contestId } = req.body
+    const { user } = req
+    const contest = await DffContestsRepo.findOneByFilter({ _id: contestId })
+    if (!contest) throw ConflictError("Contest does not exists")
 
-//     const { maximumUserTeamEntries } = contest.config
-//     const userTeam = await DffUserTeamRepo.findOneWithPlayers({ _id: userTeamId, isActive: true })
-//     if (!userTeam) throw ConflictError("User Team not found")
+    const { maximumUserTeamEntries } = contest.config
+    const userTeam = await DffUserTeamRepo.findOneWithPlayers({ _id: userTeamId, isActive: true })
+    if (!userTeam) throw ConflictError("User Team not found")
 
-//     const teamsInContest = await DffUserTeamsContestRepo
-//       .find({
-//         gameId: userTeam.gameId,
-//         _dffContest: contestId,
-//         _user: user._id
-//       })
-//     if (teamsInContest.length >= maximumUserTeamEntries) {
-//       throw ConflictError("You already have team in this contest")
-//     }
-//     const teamObject = userTeam
-//     teamObject._dffUserTeam = userTeam._id
-//     teamObject._dffContest = contestId
-//     delete teamObject._id
-//     delete teamObject.createdAt
-//     delete teamObject.updatedAt
-//     const userTeamContest = await DffUserTeamsContestRepo.create(teamObject)
+    const teamsInContest = await DffUserTeamsContestRepo
+      .find({
+        gameId: userTeam.gameId,
+        _dffContest: contestId,
+        _user: user._id
+      })
+    if (teamsInContest.length >= maximumUserTeamEntries) {
+      throw ConflictError("You already have team in this contest")
+    }
+    const teamObject = userTeam
+    teamObject._dffUserTeam = userTeam._id
+    teamObject._dffContest = contestId
+    delete teamObject._id
+    delete teamObject.createdAt
+    delete teamObject.updatedAt
+    const userTeamContest = await DffUserTeamsContestRepo.create(teamObject)
 
-//     return CreatedResponse(res, MessageTokens.team_created, userTeamContest)
-//   }),
+    return CreatedResponse(res, MessageTokens.team_created, userTeamContest)
+  }),
 
-  createUserTeamContest: (req, res) => {
+//   createUserTeamContest: (req, res) => {
 
-    return "hello"
-  }
+//     return "hello"
+//   }
 
 }

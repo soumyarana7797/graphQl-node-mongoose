@@ -5,6 +5,8 @@ const cors = require("cors")
 const morgan = require("morgan")
 const path = require("path")
 const {startApolloServer, apolloServer} = require('./initGraphQLServer')
+const graphqlController = require('./schema');
+
 // import { PORT, NODE_ENV } from './config/config';
 // import { httpsRedirect, wwwRedirect } from './lib/http-redirect';
 
@@ -35,7 +37,7 @@ const {startApolloServer, apolloServer} = require('./initGraphQLServer')
 let corsUrl = "*"
 let environment = "development"
 
-// require("./database") // initialize database
+require("./database") // initialize database
 // const {
 //   NotFoundError, ApiError,
 //   InternalError, BadRequestError,
@@ -88,6 +90,7 @@ app.use(express.static(path.join(__dirname, "public")))
 // add dffService for micro-service host
 app.use("/dffService/v1", apiRouterV1)
 // app.use("/dffService/", webRouterV1)
+// app.use('/graphql', graphqlController);
 
 // Send Path not found error
 // app.use((req, res, next) => {

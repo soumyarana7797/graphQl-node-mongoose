@@ -1,9 +1,9 @@
 
-const { ConflictError } = require("../../../../lib/core/apiError")
+// const { ConflictError } = require("../../../../lib/core/apiError")
 const DffUserTeamsContestRepo = require("../../../../database/mongoose/repositories/DffUserTeamsContestRepo")
 const { SuccessResponse } = require("../../../../lib/core/apiResponse")
-const asyncHandler = require("../../../../lib/core/asyncHandler")
-const DffUserTeamContestHistoryRepo = require("../../../../database/mongoose/repositories/DffUserTeamContestHistoryRepo")
+// const asyncHandler = require("../../../../lib/core/asyncHandler")
+// const DffUserTeamContestHistoryRepo = require("../../../../database/mongoose/repositories/DffUserTeamContestHistoryRepo")
 module.exports = {
   /**
    * @api {get} /dffService/v1/userTeamContest?userTeamContestId=60895b1652a2406b74bdeb22 Get User Team Contest By Id
@@ -487,17 +487,42 @@ module.exports = {
   *
   *
   */
-  getUserTeamContestById: asyncHandler(async (req, res) => {
-    const { userTeamContestId } = req.query
-    const { user } = req
-    let userTeamContest = await DffUserTeamsContestRepo.findById(userTeamContestId)
-    if (!userTeamContest) {
-      userTeamContest = await DffUserTeamContestHistoryRepo.findById(userTeamContestId)
-    }
+//   getUserTeamContestById: asyncHandler(async (req, res) => {
+//     const { userTeamContestId } = req.query
+//     const { user } = req
+//     let userTeamContest = await DffUserTeamsContestRepo.findById(userTeamContestId)
+//     // if (!userTeamContest) {
+//     //   userTeamContest = await DffUserTeamContestHistoryRepo.findById(userTeamContestId)
+//     // }
+//     // // TODO Multilingual support
+//     // if (!userTeamContest) throw ConflictError("user team contest notfound")
+//     const team = { ...userTeamContest, userRftc: user.rtf_credit }
+//     // TODO Multilingual support
+//     return SuccessResponse(res, "user Team Contest Fetched", team)
+//   }),
+  getUserTeamContests: async(req, res) => {
+      try{
+    // const { userTeamContestId } = req.query
+    // const { user } = req
+    // let userTeamContest = await DffUserTeamsContestRepo.findById(userTeamContestId)
+    // if (!userTeamContest) {
+    //   userTeamContest = await DffUserTeamContestHistoryRepo.findById(userTeamContestId)
+    // }
+    // // TODO Multilingual support
+    // if (!userTeamContest) throw ConflictError("user team contest notfound")
+    const team = await DffUserTeamsContestRepo.find()
+    const tempTeam = [{
+        _id: "dhhs23nce4343cjdhd345",
+        name: "teamA",
+        performance: "23ser"
+    }]
+    console.log("team", tempTeam)
+    return tempTeam
     // TODO Multilingual support
-    if (!userTeamContest) throw ConflictError("user team contest notfound")
-    const team = { ...userTeamContest, userRftc: user.rtf_credit }
-    // TODO Multilingual support
-    return SuccessResponse(res, "user Team Contest Fetched", team)
-  })
+    // return SuccessResponse(res, "user Team Contests list", team)
+      }catch(err){
+          console.log(err)
+      }
+
+  }
 }

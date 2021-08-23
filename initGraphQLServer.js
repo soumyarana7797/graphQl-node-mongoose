@@ -1,6 +1,9 @@
 const {ApolloServer} = require("apollo-server-express")
 const { GraphQLError } = require("graphql")
 const depthLimit =  require("graphql-depth-limit")
+const typeDefs = require("./schema");
+
+const resolvers = require('./resolver')
 const schema = require("./schema")
 // const queryComplexity = require("graphql-query-complexity")
 const { simpleEstimator } = require("graphql-query-complexity")
@@ -26,7 +29,8 @@ module.exports = {
     
     startApolloServer: async(middlewareObj) => {
         apolloServer = new ApolloServer({
-            schema,
+            typeDefs,
+            resolvers,
             introspection: environment !== 'production',
           //   validationRules: [depthLimit(7), queryComplexityRule],
             formatError: (err) => {

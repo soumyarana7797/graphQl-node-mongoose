@@ -30,6 +30,7 @@
     "graphql-query-complexity": "^0.8.1",
     "helmet": "^4.6.0",
     "http": "0.0.1-security",
+    "mongoose": "^5.13.7",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.12"
   }

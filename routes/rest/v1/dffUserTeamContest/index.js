@@ -3,9 +3,9 @@ const express = require("express")
 // const { appOauth } = require("../../../../lib/core/auth/appOauth")
 // const updateUserInReq = require("../../../../middleware/updateUserInReq")
 // const { validator } = require("../../../../lib/helper/validation")
-const { createUserTeamContest } = require("./create")
+// const { createUserTeamContest } = require("./create")
 // const { updateDffUserTeam } = require("./update")
-// const { getUserTeamContestById } = require("./fetch")
+const { getUserTeamContestById, getUserTeamContests } = require("./fetch")
 // const {
 //   createUserTeamContestValidator
 // } = require("./schema")
@@ -30,8 +30,10 @@ const router = express.Router()
 // router.use(appOauth.oauth.authorise(), updateUserInReq)
 /*-------------------------------------------------------------------------*/
 
-router.post("/", createUserTeamContest)
+// router.post("/", createUserTeamContest)
 // router.get("/:id", getUserTeamContestById)
+router.get("/", getUserTeamContests)
+
 
 
 // const auth = router
